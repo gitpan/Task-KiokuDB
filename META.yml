@@ -1,0 +1,20 @@
+---
+abstract: 'Install L<KiokuDB> and related modules.'
+author:
+  - 'Yuval Kogman'
+distribution_type: module
+generated_by: 'Module::Install version 0.77'
+license: mit
+meta-spec:
+  url: http://module-build.sourceforge.net/META-spec-v1.4.html
+  version: 1.4
+name: Task-KiokuDB
+no_index:
+  directory:
+    - inc
+    - t
+requires:
+  KiokuDB: 0
+  Test::use::ok: 0
+  perl: 5.8.0
+version: 0.01
