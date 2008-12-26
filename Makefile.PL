@@ -38,6 +38,9 @@ sub has_dbd {
 	eval { require DBD::mysql }
 }
 
+sub has_couchdb {
+	eval { require AnyEvent::CouchDB };
+}
 
 name 'Task-KiokuDB';
 all_from 'lib/Task/KiokuDB.pm';
@@ -53,6 +56,10 @@ feature 'XS acceleration for JSON',
   -default   => 1,
   'JSON::XS' => 0;
 
+feature 'YAML::XS for dump/load & MooseX::YAML',
+  -default   => 1,
+  'YAML::XS' => 0;
+
 feature 'MooseX::Storage integration',
   -default          => 0,
   'MooseX::Storage' => 0;
@@ -65,6 +72,10 @@ feature 'Berkeley DB backend',
 feature 'DBI backend',
   -default                => has_dbd(),
   'KiokuDB::Backend::DBI' => 0;
+
+feature 'CouchDB backend',
+  -default                    => has_couchdb(),
+  'KiokuDB::Backend::CouchDB' => 0;
 
 feature 'libuuid based UUIDs',
   -default              => has_uuid(),
