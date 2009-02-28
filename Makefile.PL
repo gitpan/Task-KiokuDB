@@ -15,11 +15,13 @@ sub has_lib { can_cc() and scalar grep { length } ExtUtils::Liblist->ext("-l$_[0
 sub has_bdb {
 	can_use("BerkeleyDB")
 		or
-	exists $ENV{BERKELEYDB_LIB}
-		or
-	-e '/usr/local/BerkeleyDB'
-		or
-	has_lib("db") or has_lib("libdb");
+	can_cc() && (
+		exists $ENV{BERKELEYDB_LIB}
+			or
+		-e '/usr/local/BerkeleyDB'
+			or
+		has_lib("db") or has_lib("libdb")
+	);
 }
 
 sub has_uuid {
@@ -80,8 +82,20 @@ feature 'CouchDB backend',
   'KiokuDB::Backend::CouchDB' => 0;
 
 feature 'libuuid based UUIDs',
-  -default              => has_uuid(),
+  -default              => scalar( can_cc() && has_uuid() ),
   'Data::UUID::LibUUID' => 0;
+
+feature 'generic user object',
+	-default       => 0,
+	'KiokuX::User' => 0;
+
+feature 'generic model wrapper',
+	-default        => 0,
+	'KiokuX::Model' => 0;
+
+feature 'Catalyst integration',
+	-default                   => 0,
+	'Catalyst::Model::KiokuDB' => 0;
 
 auto_install;
 WriteAll;
