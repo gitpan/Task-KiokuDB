@@ -7,7 +7,7 @@ use warnings;
 
 use 5.008;
 
-our $VERSION = "0.05";
+our $VERSION = "0.06";
 
 __PACKAGE__
 
@@ -33,6 +33,10 @@ additional components.
 All of these are considered optional.
 
 =over 4
+
+=item L<KiokuDB::Cmd>
+
+Commands for the C<kioku> command line program.
 
 =item L<KiokuDB::Backend::Files>
 
